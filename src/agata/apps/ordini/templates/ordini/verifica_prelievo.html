@@ -1,0 +1,44 @@
+{% extends "ordini/base_ordini.html" %}
+
+{% block extra_head %}
+<script src="/static/ordini/prelievo.js"></script>
+<script type="text/javascript">
+function chiudi(warn) {
+if (warn) {
+if (!confirm("Chiudere l'ordine con degli incompleti?"))
+return;
+}
+location.href="/ordini/chiudi_prelievo/{{idordine}}";
+}
+
+</script>
+
+{% endblock %}
+
+{% block body %}
+<h1>Verifica prelievo</h1>
+<h2>Ordine {{ ordine }}</h2>
+Stato delle letture:
+<table>
+<tr>
+<th>Completi</th><td>{{ncompleti}}</td>
+<th>Incompleti</th><td>{{nincompleti}}</td>
+</tr>
+<tr>
+<th>Eccesso</th><td>{{nesubero}}</td>
+<th>Sconosciuti</th><td>{{nsconosciuti}}</td>
+</tr>
+</table>
+
+<input type="button" value="Torna alla lettura" onclick="location.href='/ordini/prelievo/{{idordine}}';"/>
+{% if ok_salva %}
+{% if warn_salva %}
+<input type="button" value="Chiudi ordine" onclick="chiudi(true);"/>
+{% else %}
+<input type="button" value="Chiudi ordine" onclick="chiudi(false);"/>
+{% endif %}
+{% else %}
+<input type="button" value="Rimuovere gli eccessi per chiudere l'ordine" onclick="location.href='/ordini/prelievo/{{idordine}}';"/>
+{% endif %}
+
+{% endblock %}

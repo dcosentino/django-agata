@@ -1,0 +1,33 @@
+{% extends "ordini/base_ordini.html" %}
+
+{% block extra_head %}
+<script src="/static/ordini/prelievo.js"></script>
+<script type="text/javascript">
+var expected_codes = {
+{% for a in articoli %}{{ a|safe }},
+{% endfor %}
+'tappo': null
+};
+
+var letture = [ {{ letture|safe }} ];
+</script>
+
+{% endblock %}
+
+{% block body %}
+<h1>Prelievo</h1>
+
+<div align="left">
+<form action="/ordini/verifica_prelievo/{{idordine}}" method="post">
+{% csrf_token %}
+<input type="submit" value="Verifica"/>
+<input type="hidden" style="height:200px" name="codici" id="codici"/>
+</form>
+<div id="lista" style="width: 400px; height: 250px; overflow:scroll;">Caricamento lista</div>
+<div id="verifica"></div>
+<input type="button" id="storno" onclick="delete_last()" value="Storno ultimo articolo" />
+<input type="button" id="collo" onclick="nuovo_collo()" value="Nuovo collo"/>
+<input type="text" id="codice" length="16" maxlength="14"/>
+<br/>
+</div>
+{% endblock %}

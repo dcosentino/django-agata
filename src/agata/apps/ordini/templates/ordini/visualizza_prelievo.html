@@ -1,0 +1,21 @@
+{% extends "ordini/base_ordini.html" %}
+
+{% block extra_head %}
+<script src="/static/ordini/prelievo.js"></script>
+<script type="text/javascript">
+var expected_codes = {
+{% for a in articoli %}{{ a|safe }},
+{% endfor %}
+'tappo': null
+};
+
+var letture = [ {{ letture|safe }} ];
+</script>
+
+{% endblock %}
+
+{% block body %}
+<h1>Ordine di Prelievo {{ ordine }}</h1>
+
+Ordine chiuso
+{% endblock %}

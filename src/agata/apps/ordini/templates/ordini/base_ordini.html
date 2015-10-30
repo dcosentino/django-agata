@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta content="Studio Associato 4Sigma" name="author" />
+    <meta content="application/xhtml+xml; charset=UTF-8" http-equiv="content-type" />
+    <meta name="description" content="{%spaceless%}{% block description %}{% endblock %}{%endspaceless%}" />
+    <meta name="keywords" content="{% block keywords %}{% endblock %}" />
+
+    <!-- The YUI CSS Foundation -->
+    <link rel="stylesheet" type="text/css" href="/static/yui/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+    <link rel="stylesheet" type="text/css" href="/static/yui/2.7.0/build/base/base-min.css" />
+    <link href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:200,300,400,700" rel="stylesheet" type="text/css" />
+
+    {% block extra_style %}{% endblock %}
+
+    <!-- Client side scripting -->
+    <script type="text/javascript" src="/static/jquery/1.4.2/jquery-1.4.2-mini.js"></script>
+    <script type="text/javascript" src="/static/ordini/base.js"></script>
+
+    {% block extra_script %}
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.link_esterno').attr("target", "_blank");
+      });
+    </script>
+    {% endblock %}
+
+    {% block extra_head %}{% endblock %}
+    <!-- favicon -->
+    <link rel="icon" href="/static/images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="SHORTCUT ICON" href="/static/images/favicon.ico" />
+  </head>
+
+  <body>
+<audio id="snd_lettura">
+     <source src="/static/ordini/lettura.ogg" type="audio/ogg"/>
+     <source src="/static/ordini/lettura.mp3" type="audio/mp3"/>
+</audio>
+<audio id="snd_esubero">
+     <source src="/static/ordini/esubero.ogg" type="audio/ogg"/>
+     <source src="/static/ordini/esubero.mp3" type="audio/mp3"/>
+</audio>
+<audio id="snd_ordine_completo">
+     <source src="/static/ordini/ordine_completo.ogg" type="audio/ogg"/>
+     <source src="/static/ordini/ordine_completo.mp3" type="audio/mp3"/>
+</audio>
+<audio id="snd_sconosciuto">
+     <source src="/static/ordini/sconosciuto.ogg" type="audio/ogg"/>
+     <source src="/static/ordini/sconosciuto.mp3" type="audio/mp3"/>
+</audio>
+<audio id="snd_completo">
+     <source src="/static/ordini/completo.ogg" type="audio/ogg"/>
+     <source src="/static/ordini/completo.mp3" type="audio/mp3"/>
+</audio>
+<script type="text/javascript">
+   //<![CDATA[
+     ;
+
+var audioctrl = {};
+
+function build_snd(id) {
+    function _play() {
+        if (!audioctrl[id])
+            audioctrl[id] = document.getElementById(id);
+        audioctrl[id].pause();
+        audioctrl[id].currentTime=0;
+        audioctrl[id].play();
+    };
+
+    this.play = _play;
+    return this;
+}
+
+
+var audiofx = {
+letturaok: new build_snd("snd_lettura"),
+letturaesubero: new build_snd("snd_esubero"),
+letturacompleto: new build_snd("snd_ordine_completo"),
+letturasconosciuto: new build_snd("snd_sconosciuto"),
+letturaartcompleto: new build_snd("snd_completo")
+};
+
+var suona_ad_ok=false;
+var aggiungi_solo_ok=false;
+
+//]]>
+</script>
+    {% block body %}
+    {% endblock %}
+  </body>
+</html>
+
