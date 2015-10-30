@@ -8,7 +8,7 @@ from models import *
 class ArticoloForm(ModelForm):
     class Meta:
         model = Articolo
-
+        exclude = []
     def clean_codice_ean(self):
         return self.cleaned_data['codice_ean'] or None
 

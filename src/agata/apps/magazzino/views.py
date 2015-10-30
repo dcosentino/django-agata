@@ -6,10 +6,10 @@ from django.conf import settings
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
-from magazzino.models import *
+from agata.apps.magazzino.models import *
 
-import articoli.models as articoli_db
-import anagrafiche.models as anagrafiche_db
+import agata.apps.articoli.models as articoli_db
+import agata.apps.anagrafiche.models as anagrafiche_db
 
 
 def parse_barcodes(text):

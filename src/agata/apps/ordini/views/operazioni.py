@@ -8,9 +8,9 @@ from django.core.context_processors import csrf
 
 import datetime
 
-import magazzino.models as magazzino_db
-import articoli.models as articoli_db
-import ordini.models as ordini_db
+import agata.apps.magazzino.models as magazzino_db
+import agata.apps.articoli.models as articoli_db
+import agata.apps.ordini.models as ordini_db
 
 
 def prelievo(request, idordine):

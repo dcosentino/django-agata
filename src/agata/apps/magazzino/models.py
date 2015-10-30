@@ -3,8 +3,8 @@
 import re, os, datetime
 
 from django.db import models
-import articoli.models as articoli_db
-import anagrafiche.models as anagrafiche_db
+import agata.apps.articoli.models as articoli_db
+import agata.apps.anagrafiche.models as anagrafiche_db
 from django.forms import ModelForm
 from django import forms
 from django.conf import settings
@@ -64,8 +64,7 @@ STATI_OPERAZIONI = (
 TIPI_OPERAZIONI = (
     ('prelievo', 'prelievo'),
     ('deposito', 'deposito'),
-    ('trasferimento', 'trasferimento'),
-    (settings.PRELIEVO_PER_VENDITA, settings.PRELIEVO_PER_VENDITA),
+    ('trasferimento', 'trasferimento')
     )
 
 class OperazioneMagazzino(models.Model):

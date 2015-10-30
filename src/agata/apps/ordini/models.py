@@ -4,8 +4,8 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
-import anagrafiche.models as anagrafiche_db
-import articoli.models as articoli_db
+import agata.apps.anagrafiche.models as anagrafiche_db
+import agata.apps.articoli.models as articoli_db
 
 TIPO_ORDINE = (
     ( 'Prelievo', 'Prelievo'),
@@ -130,6 +130,8 @@ class DettaglioOrdine(models.Model):
     articolo = models.ForeignKey(articoli_db.Articolo)
     richiesto = models.IntegerField(blank=False, null=False)
     numero = models.IntegerField(blank=True, null=True)
+    class Meta(object):
+        verbose_name_plural = 'dettagli ordine'
 
 @receiver(pre_save, sender=Ordine)
 def update_ordine(sender, instance, *args, **kwargs):

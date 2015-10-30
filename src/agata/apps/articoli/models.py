@@ -2,7 +2,7 @@
 
 from django.db import models
 
-import anagrafiche.models as anagrafiche_db
+import agata.apps.anagrafiche.models as anagrafiche_db
 
 class Articolo(models.Model):
     produttore = models.ForeignKey(anagrafiche_db.Societa)

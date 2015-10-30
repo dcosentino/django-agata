@@ -6,7 +6,7 @@ from django.template import RequestContext
 
 from django.conf import settings
 
-from contabilita.models import Fattura, FatturaFornitore, Spesa, Tassa, Stipendio, Dividendo
+from agata.apps.contabilita.models import Fattura, FatturaFornitore, Spesa, Tassa, Stipendio, Dividendo
 
 def tipologia_clientela(request, anno, chi):
 
