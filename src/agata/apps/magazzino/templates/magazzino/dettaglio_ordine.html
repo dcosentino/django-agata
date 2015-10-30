@@ -1,0 +1,63 @@
+<html>
+<head>
+<style>
+  th { text-align: left; }
+  th, td {
+    border: 1px solid black; 
+    padding: 10px;
+  }
+</style>
+</head>
+<body>
+  <h1>{{ordine.societa}} {{ordine.tipo|capfirst}} del {{ordine.ts_ordine|date:"d m Y"}}</h1>  
+  <h2>{{ordine.ragione_sociale_anagrafica}} - numero documento {{ordine.numero_documento}}</h2>
+  <table class="tabella">
+    <tr>
+      <th>Produttore</th>
+      <th>Barcode</th>
+      <th>Codice Articolo</th>
+      <th>Descrizione</th>
+      <th>Quantità Richiesta</th>
+      <th>Ubicazione</th>
+      {% if ordine.tipo == 'prelievo' and ordine.stato == 'Inserito' %}
+      <th>Ubicazioni contenenti l'articolo<br/>(Ubicazione: Quantità)</th>
+      {% endif %}
+      {% if ordine.societa.id == settings.ID_PRODUTTORE_SOEDIS and ordine.tipo == 'deposito' %}
+      <!--th>Barcode Master Carton</th>
+      <th>Quantità per Master Carton</th-->
+      {% endif %}
+      
+    </tr>
+    {% for v in ordine.richiesta_hr %}
+    <tr>
+      <td>{{v.articolo.produttore}}</td>
+      <td>{{v.articolo.codice_ean}}</td>
+      <td>{{v.articolo.codice}}</td>
+      <td>{{v.articolo.descrizione}}</td>
+      <td class="right_align">{{v.quantita}}</td>
+      <td class="right_align">{% if v.ubicazione %}{{v.ubicazione}}{% endif %}</td>
+      {% if ordine.tipo == 'prelievo' and ordine.stato == 'Inserito' %}
+      <td class="right_align">
+	{% for g in v.articolo.giacenze %}
+	{% if g.ubicazione %}
+	{{g.ubicazione}}: {{g.quantita}}
+	{% else %}
+	SENZA NOME: {{g.quantita}}
+	{% endif %}
+	{% endfor %}
+      </td>
+      {% endif %}
+      {% if ordine.societa.id == settings.ID_PRODUTTORE_SOEDIS and ordine.tipo == 'deposito' %}
+      <!--td>{{v.articolo.soedis_articolo_related.barcode_master_carton}}</td>
+      <td>{{v.articolo.soedis_articolo_related.quantita_box_per_master_carton}}</td-->
+      {% endif %}
+    </tr>
+    {% endfor %}
+
+  <table>
+
+  {% if ordine.note %}<p><strong>Note del cliente: </strong>{{ordine.note}}</p>{% endif %}
+
+
+</body>
+</html>

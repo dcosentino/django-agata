@@ -1,0 +1,71 @@
+{% extends "magazzino/base_magazzino.html" %}
+
+{% block content %}
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script>
+function verificaForm() {
+  if ( $('#id_ubicazione').val() == '' ) {
+    alert('Inserire l\'ubicazione');
+    return false;
+  }
+  $('#form-magazzino').submit();
+}
+</script>
+<h1>{{operazione|capfirst}} con ubicazioni</h1>
+<div>
+
+  <form action="{% url 'operazione_magazzino_ubicazioni' operazione %}" method="post" enctype="multipart/form-data" style="width:385px;" id="form-magazzino">{% csrf_token %}
+    <table>
+      <tr>
+        <th>Magazzino</th>
+        <th>Codice Articolo</th>
+        <th>Quantità</th>
+        <th>Ubicazione</th>
+        <th>Note</th>
+      </tr>
+      <tr>
+        <td>
+          {{form.magazzino}}
+          {{form.magazzino.errors}}
+        </td>
+        <td>
+          {{form.codice_articolo}}
+          {{form.codice_articolo.errors}}
+        </td>
+        <td>
+          {{form.quantita}}
+          {{form.quantita.errors}}
+        </td>
+        <td>
+          {{form.ubicazione}}
+          {{form.ubicazione.errors}}
+        </td>
+        <td>
+          {{form.note}}
+          {{form.note.errors}}
+        </td>
+
+        <td>
+          <input type="button" value="{{operazione}}" onclick="verificaForm();"/>
+        </td>
+      </tr>
+    </table>
+
+
+  {% if msg %}
+    <p class="{{msg_class}}">{{msg|safe}}</p>
+  {% endif %}
+
+  {% if lettura_ok %}
+    <input type="hidden" value="{{lettura_ok}}" name="completa"/>
+  {% endif %}
+
+  </form>
+
+
+</div>
+{% endblock %}
+
+
+
+

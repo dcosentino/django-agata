@@ -1,0 +1,109 @@
+{% extends "magazzino/base_magazzino.html" %}
+
+
+{% block content %}
+<style>
+textarea {
+         height: 300px;
+}
+a.bottone {
+display:block;
+float:right;
+width:140px;
+height:40px;
+    background:#979797;
+}
+
+a.bottone:hover {
+    background:#D2E8D7;
+}
+</style>
+<h1>Storico articoli</h1>
+<div>
+	{% if elenco %}
+	  <a class="bottone" href="{% url 'magazzino_storico_articoli_download' codice %}"><img src="/static/common/img/btn-download.png" alt="Download XLS"></a>
+	{% endif %}
+
+  <form action="{% url 'magazzino_storico_articoli' %}" method="post" enctype="multipart/form-data" style="width:385px;" id="profilo">{% csrf_token %}
+    <table>
+      <tr valign="top">
+	<!--td>
+	  <label for="id_cliente">Cliente: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+	  <select name="cliente" id="cliente">
+	    {% for c in clienti %}
+	    <option value="{{c.id}}" {%if id_cliente == c.id %}selected="selected"{% endif %}>{{c.ragione_sociale}}</option>
+	    {% endfor %}
+	  </select>
+	</td-->
+        <td>
+          <label for="id_magazzino">Codice articolo:</label>
+          <input type="text" name="codice" value="{{codice}}"/>
+        </td>
+	<td><input type="submit" value="Ricerca operazioni" /></td>
+
+      </tr>
+
+
+    </table>
+
+    
+  </form>
+
+
+
+  {% if elenco %}
+  <table class="tabella">
+    <tr>
+      <th>Data operazione</th>
+      <th>Tipo operazione</th>
+      <th>Magazzino Ingresso</th>
+      <th>Magazzino Uscita</th>
+      <th>Codice Articolo</th>
+      <th>Quantità</th>
+      <th>Note</th>
+    </tr>
+    {% for e in elenco %}
+    <tr class="tab_magazzino_{{v.res}}">
+      <td>{{e.0}}</td>
+      <td>{{e.1}}</td>
+      <td>{% if e.2 %}{{e.2}}{%endif%}</td>
+      <td>{% if e.3 %}{{e.3}}{%endif%}</td>
+      <td>{{e.4}}</td>
+      <td>{{e.5}}</td>
+      <td>{{e.6}}</td>
+    </tr>
+    {% endfor %}
+  <table>
+
+   {% if giacenze %}
+   <h1 style="margin-top:20px;">Giacenze attuali</h1>
+  <table class="tabella">
+    <tr>
+      <th>Magazzino</th>
+      <th>Produttore</th>
+      <th>Articolo</th>
+      <th>Barcode</th>
+      <th>Descrizione</th>
+      <th>Giacenza</th>
+    </tr>
+    {% for e in giacenze %}
+    <tr class="tab_magazzino_{{v.res}}">
+      <td>{{e.magazzino}}</td>
+      <td>{{e.articolo.produttore}}</td>
+      <td>{{e.articolo.codice}}</td>
+      <td>{{e.articolo.codice_ean}}</td>
+      <td>{{e.articolo.descrizione}}</td>
+      <td>{{e.quantita}}</td>
+    </tr>
+    {% endfor %}
+  <table>
+
+  {% endif %}
+  {% endif %}
+
+</div>
+{% endblock %}
+
+
+
+

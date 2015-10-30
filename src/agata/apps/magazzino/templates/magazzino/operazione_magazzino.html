@@ -1,0 +1,153 @@
+{% extends "magazzino/base_magazzino.html" %}
+
+
+{% block content %}
+<script>
+function modificaOrdine() {
+if (confirm('Sicuro di inviare l\'ordine modificato?')) {
+    $('#modifica_richiesta').val('TRUE');
+    $('#profilo').submit();
+  }
+}
+</script>
+<style>
+textarea {
+         height: 300px;
+}
+</style>
+<h1>{{tipo|capfirst}} - {{operazione.stato}}</h1>
+{% if not completata %}
+<div>
+  <form action="{% url 'operazione_magazzino' tipo id_operazione %}" method="post" enctype="multipart/form-data" style="width:385px;" id="profilo">{% csrf_token %}
+    <table>
+      {% if manuale %}
+      <tr><td><label for="id_cliente">Cliente: &nbsp;&nbsp;&nbsp;&nbsp;</label><select name="cliente" id="cliente">
+	{% for c in clienti %}
+	<option value="{{c.id}}" {%if id_cliente == c.id %}selected="selected"{% endif %}>{{c.ragione_sociale}}</option>
+	{% endfor %}
+      </select></td></tr>
+      {% endif %}
+      <tr>
+        <td>
+          {{form.magazzino_uscita.errors}}
+          <label for="id_magazzino">Magazzino Uscita:</label>
+          {{form.magazzino_uscita}}
+        </td>
+        <td>
+          {{form.magazzino_ingresso.errors}}
+          <label for="id_magazzino_da">Magazzino Ingresso:</label>
+          {{form.magazzino_ingresso}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{form.letture.errors}}
+          <label for="id_letture">Letture:</label>
+          {{form.letture}}
+        </td>
+        <td>
+          {{form.note.errors}}
+          <label for="id_note">Note:</label>
+          {{form.note}}
+        </td>
+      </tr>
+    </table>
+
+  {% if lettura_ok %}
+    <input type="submit" value="Completa {{tipo}}" />
+    <input type="hidden" value="{{lettura_ok}}" name="completa"/>
+  {% else %}
+    <input type="submit" value="Verifica {{tipo}}" />
+    {% if tot_pezzi > 0 %}
+    <input type="button" value="Completa {{tipo}} con modifica" style="float:right; background:red;color:white;" onclick="modificaOrdine();"/>
+    <input type="hidden" value="FALSE" name="modifica_richiesta" id="modifica_richiesta"/>
+    {% endif %}
+  {% endif %}
+
+  </form>
+
+{% endif %}
+<table cellspacing="0" cellpadding="3" id="legenda" class="tabella">
+  <tbody>
+    <tr>
+      <th colspan="4"><h1>Riepilogo lettura</h1></th>
+    </tr>
+
+    <tr>
+      <th class="left_align titolo_dati">Colli</th>
+      <td class="right_align cella_dati"></td>
+      <th class="left_align titolo_dati">Articoli</th>
+      <td class="right_align cella_dati">{{totali.articoli}}</td>
+    </tr>
+    <tr>
+      <th class="left_align titolo_dati">Q.<sup><u>tà</u></sup> richiesta</th>
+      <td class="right_align cella_dati">{{qta_richiesta}}</td>
+      <th class="left_align titolo_dati">Q.<sup><u>tà</u></sup> letta</th>
+      <td class="right_align cella_dati">{{tot_pezzi}}</td>
+    </tr>
+    <tr>
+      <th class="left_align tab_magazzino_ok">Ok</th>
+      <td class="right_align tab_magazzino_ok">{{totali.ok}}</td>
+      <th class="left_align tab_magazzino_some">Parziale</th>
+      <td class="right_align tab_magazzino_some">{{totali.some}}</td>
+    </tr>
+    <tr>
+      <th class="left_align tab_magazzino_more">Eccedenza</th>
+      <td class="right_align tab_magazzino_more">{{totali.more}}</td>
+      <th class="left_align tab_magazzino_unknown">Sconosciuto</th>
+      <td class="right_align tab_magazzino_unknown">{{totali.unknown}}</td>
+    </tr>
+    <tr>
+      <th class="left_align tab_magazzino_missing">Mancante</th>
+      <td class="right_align tab_magazzino_missing">{{totali.missing}}</td>
+      <th class="left_align tab_magazzino_not_requested">Non richiesto</th>
+      <td class="right_align tab_magazzino_not_requested">{{totali.not_requested}}</td>
+    </tr>
+    <tr>
+      <th class="left_align tab_magazzino_missing_giacenza">Non disponibili</th>
+      <td class="right_align tab_magazzino_missing_giacenza">{{totali.missing_giacenza}}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+  {% if not lettura_ok and tot_pezzi > 0 %}
+  {% if operazione.ordine.richiesta_modificata %}
+  {% else %}
+  <ul class="errorlist"><li>Impossibile proseguire. Correggere gli errori nella lettura</li></ul>
+  {% endif %}
+  {% endif %}
+
+  {% if verifica or completata %}
+  <table class="tabella">
+    <tr>
+      <th>Produttore</th>
+      <th>Barcode</th>
+      <th>Codice Articolo</th>
+      <th>Descrizione</th>
+      <th>Quantità</th>
+      <th>Quantità Richiesta</th>
+      <th>Ubicazione</th>
+    </tr>
+    {% for v in verifica %}
+    <tr class="tab_magazzino_{{v.res}}">
+      <td>{{v.articolo.produttore}}</td>
+      <td>{{v.codice_ean|safe}}</td>
+      <td>{{v.articolo.codice}}</td>
+      <td>{{v.articolo.descrizione}}</td>
+      <td class="right_align">{{v.quantita}}</td>
+      <td class="right_align">{{v.richiesta}}</td>
+      <td class="right_align">{% for k, qta in v.ubicazioni.iteritems %}{{k|default:'N/A'}}<br/>{{qta}}{%if not forloop.last%}<br/>{%endif%}{% endfor%}</td>
+      {% if v.ubicazione %}<td class="right_align">{{v.ubicazione}}</td>{% endif %}
+    </tr>
+    {% endfor %}
+
+  <table>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+
+
+

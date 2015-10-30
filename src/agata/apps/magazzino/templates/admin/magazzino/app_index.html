@@ -1,0 +1,29 @@
+{% extends "admin/app_index.html" %}
+
+{% load i18n %}
+
+{% block sidebar %}
+{% if user.is_authenticated %}
+<div id="content-related">
+        <h1>Gestione Magazzini</h1>
+    <div class="module" style="width:400px;">
+        <h2>Operazioni singole con ubicazioni</h2>
+        <ul>
+            <li><a href="{% url 'operazione_magazzino_ubicazioni' 'prelievo' %}">Prelievo <b>con</b> ubicazioni</a></li>
+            <li><a href="{% url 'operazione_magazzino_ubicazioni' 'deposito' %}">Deposito <b>con</b> ubicazioni</a></li>
+        </ul>
+        <h2>Operazioni cumulative</h2>
+        <ul>
+            <li><a href="{% url 'operazione_magazzino' 'prelievo' '' %}">Prelievo</a></li>
+            <li><a href="{% url 'operazione_magazzino' 'deposito' '' %}">Deposito</a></li>
+        </ul>
+        <h2>Altre Operazioni</h2>
+        <ul>
+            <li><a href="{% url 'magazzino_storico_articoli' %}">Storico articoli</a></li>
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+

@@ -1,0 +1,81 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+     &rsaquo; <a href="/admin/magazzino/">Magazzino</a>
+    </div>
+<style>
+  #legenda {
+    position: fixed;
+    top: 150px;
+    right: 50px;
+  }
+
+  .tab_magazzino_ok  {
+    background: #a0ffa0;;
+  }
+  .tab_magazzino_unknown  {
+    background: #B4045F;
+  }
+  .tab_magazzino_some  {
+    background: #FFFC00;
+  }
+  .tab_magazzino_more {
+    background-color: cyan;
+  }
+  .tab_magazzino_missing {
+    background-color: #FF9966;
+  }
+  .tab_magazzino_not_requested {
+    background-color: #eF80f0;
+  }
+  .tab_magazzino_missing_giacenza {
+    background-color: #C0C0C0;
+  }
+
+  p.error_msg {
+    border: 2px solid red;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 150%;
+    width:100%; 
+  }
+
+  .right_align {
+    text-align:right; 
+  }
+
+  textarea {
+    height: 50px;
+  }
+
+  .tabella td,
+  .tabella th {
+  font-size: 120%;
+  padding:5px;
+      border: 1px solid white;
+
+  }
+
+
+  p.err {
+    background: #FF9966;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 150%;
+    width: 800px;; 
+  }
+
+  p.ok  {
+    background: #a0ffa0;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 150%;
+    width: 800px; 
+  }
+
+</style>
+{% endblock %}
+
