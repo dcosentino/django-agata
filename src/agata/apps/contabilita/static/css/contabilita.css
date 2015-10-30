@@ -1,0 +1,18 @@
+body {
+    text-align:center;
+}
+
+table{
+    margin:auto;
+}
+
+td.valuta,
+th.valuta {
+    text-align:right;
+}
+
+#chart_div,
+#table_div {
+    width:50%;
+    float:left;
+}

@@ -1,0 +1,86 @@
+{% extends "admin/app_index.html" %}
+
+{% load i18n %}
+
+{% block sidebar %}
+{% if user.is_superuser %}
+<div id="content-related">
+    <h1>Generali</h1>
+    <div class="module" style="width:400px;">
+      <h2>Statistiche</h2>
+      <ul>
+          <li><a href="/contabilita/statistiche/fatturato/all">Fatturato</a></li>
+          <li><a href="/contabilita/statistiche/entrate_uscite/all">Entrate/Uscite</a></li>
+          <li><a href="/contabilita/statistiche/debitori/all">Debitori</a></li>
+      </ul>
+    </div>
+    <br/><br/>
+    <h1>4Sigma Snc</h1>
+    <div class="module" style="width:400px;">
+        <h2>Statistiche</h2>
+        <ul>
+            <li><a href="/contabilita/statistiche/fatturato/snc">Fatturato</a></li>
+            <li><a href="/contabilita/statistiche/entrate_uscite/snc">Entrate/Uscite</a></li>
+            <li><a href="/contabilita/statistiche/debitori/snc">Debitori</a></li>
+        </ul>
+
+        <h2>Studio di Settore</h2>
+        <ul>
+            <li><b>Tipologia Compensi</b>:
+              <a href="/contabilita/tipologia_compensi/snc/2015">2015</a>
+              <a href="/contabilita/tipologia_compensi/snc/2014">2014</a>
+              <a href="/contabilita/tipologia_compensi/snc/2013">2013</a>
+            </li>
+            <li><b>Tipologia Clientela</b>:
+              <a href="/contabilita/tipologia_clientela/snc/2015">2015</a>
+              <a href="/contabilita/tipologia_clientela/snc/2014">2014</a>
+              <a href="/contabilita/tipologia_clientela/snc/2013">2013</a>
+            </li>
+            <li>
+              <b>Area di Mercato</b>:
+              <a href="/contabilita/area_di_mercato/snc/2015">2015</a>
+              <a href="/contabilita/area_di_mercato/snc/2014">2014</a>
+              <a href="/contabilita/area_di_mercato/snc/2013">2013</a>
+            </li>
+        </ul>
+    </div>
+    <br/><br/>
+    <h1 style="width:100%;">Studio Associato 4Sigma</h1>
+    <div class="module" style="width:400px;">
+        <h2>Statistiche</h2>
+        <ul>
+            <li><a href="/contabilita/statistiche/fatturato/studio">Fatturato</a></li>
+            <li><a href="/contabilita/statistiche/entrate_uscite/studio">Entrate/Uscite</a></li>
+            <li><a href="/contabilita/statistiche/debitori/studio">Debitori</a></li>
+            <li><b>Ritenute d'acconto mancanti</b>:
+              <a href="/contabilita/ritenute_acconto/2015">2015</a>
+              <a href="/contabilita/ritenute_acconto/2014">2014</a>
+              <a href="/contabilita/ritenute_acconto/2013">2013</a>
+            </li>
+        </ul>
+
+        <h2>Studio di Settore</h2>
+        <ul>
+            <li><b>Tipologia Compensi</b>:
+              <a href="/contabilita/tipologia_compensi/studio/2015">2015</a>
+              <a href="/contabilita/tipologia_compensi/studio/2014">2014</a>
+              <a href="/contabilita/tipologia_compensi/studio/2013">2013</a>
+            </li>
+            <li><b>Tipologia Clientela</b>:
+              <a href="/contabilita/tipologia_clientela/studio/2015">2015</a>
+              <a href="/contabilita/tipologia_clientela/studio/2014">2014</a>
+              <a href="/contabilita/tipologia_clientela/studio/2013">2013</a>
+            </li>
+            <li>
+              <b>Area di Mercato</b>:
+              <a href="/contabilita/area_di_mercato/studio/2015">2015</a>
+              <a href="/contabilita/area_di_mercato/studio/2014">2014</a>
+              <a href="/contabilita/area_di_mercato/studio/2013">2013</a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+

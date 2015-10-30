@@ -1,0 +1,24 @@
+{% extends "contabilita/base_contabilita.html" %}
+
+
+{% block content %}
+<h1>Ritenute d'acconto mancanti {{anno}}</h1>
+<table>
+  <tr>
+    <th>Cliente</th>
+    <th>Numero fattura</th>
+    <th>Data</th>
+    <th>importo</th>
+  </tr>
+  {% for f in fatture %}
+  <tr>
+    <td>{{f.cliente.ragione_sociale}}</td>
+    <td>{{f.numero}}</td>
+    <td>{{f.data|date:"d/M/Y"}}</td>
+    <td class="valuta">{{f.importo|floatformat:"2"}} €</td>
+  </tr>
+  {%endfor%}
+</table>
+
+
+{% endblock %}

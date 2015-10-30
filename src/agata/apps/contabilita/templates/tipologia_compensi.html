@@ -1,0 +1,71 @@
+{% extends "contabilita/base_contabilita.html" %}
+
+{% load formattazione %}
+
+{% block content %}
+<h1>Tipologia Compensi {{anno}}</h1>
+
+<div>
+  <div id="table_div">
+
+    <table>
+      <tr>
+        <th>Attività svolta</th>
+        <th>Numero incarichi</th>
+        <th>% sui compensi</th>
+      </tr>
+      {% for k,v in output.iteritems %}
+      <tr><th>{{k}}</th><td>{{v.numero_incarichi}}</td><td class="valuta">{{v.totale|floatformat:"2"}}%</td></tr>
+      {%endfor%}
+
+      <tr><th>Verifica</th><th>{{verifica.numero_incarichi}}</th><th class="valuta">{{verifica.importo_totale|floatformat:"2"}}%</th></tr>
+    </table>
+  </div>
+  <div id="chart_div"></div>
+</div>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      google.setOnLoadCallback(drawChart);
+
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Anno');
+      data.addColumn('number', 'Fatturato');
+      data.addRows([
+      {% for k,v in output.iteritems %}
+        ['{{k}}', {{v.totale|euro}}]{%if not forloop.last%},{%endif%}
+      {% endfor %}
+
+
+      ]);
+
+      // Set chart options
+      var options = {'title':'Tipologia Compensi {{anno}}',
+                     'width':400,
+                     'height':400};
+
+var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    chart.draw(data, {width: '100%', height: 400,
+               colors: ['#c3c3c3', '#b2c8b2', '#d9e0de', '#cdded1'],
+               chartArea: {left:138,top:30, width:"50%",height:"50%"},
+               legendTextStyle: {color:'#666666'},
+               hAxis: {title: 'Anno',
+               titleTextStyle: {color: '#5c5c5c'},
+               titlePosition: 'out'}
+              });
+    }
+</script>
+
+
+   {% endblock %}

@@ -1,0 +1,58 @@
+{% extends "contabilita/base_contabilita.html" %}
+
+{% load formattazione %}
+
+{% block content %}
+<style>
+th, td {
+  padding:5px;
+  padding-right:10px;
+}
+</style>
+<h1>{{chi|capfirst}}'s Hall of Shame<br/>
+An the winner is: {{vincitore.0}}<br/>
+Maltolto da recuperare: {{totale}} €</h1>
+
+<div id="piechart_3d" style="width: 900px; height: 500px;margin-bottom:20px;"></div>
+
+<div>
+  <table>
+    <tr>
+      <th style="text-align:left;">Cliente</th>
+      <th>Data</th>
+      <th style="text-align:right;">Importo</th>
+    </tr>
+    {% for dato in elenco %}
+    <tr>
+      <td>{{dato.cliente.ragione_sociale}}
+      <td>{{dato.data|date:"d/m/Y"}}</td>
+      <td class="valuta" style="text-align:right;">{{dato.importo|floatformat:"2"}}€</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+
+   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Cliente', 'Importo'],
+          {% for t in torta.iteritems %}
+          ['{{t.0}}',    {{t.1|euro}}],
+          {% endfor %}
+        ]);
+
+        var options = {
+          //title: 'Hall of Shame di {{chi}}',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
+
+{% endblock %}
