@@ -26,17 +26,18 @@ def esporta_giacenze(modeladmin, request, queryset):
     from django.http import HttpResponse
 
 
-    dati = ['Magazzino;Produttore;Codice Articolo;Codice EAN;Descrizione;Quantita;']
+    dati = ['Magazzino;Produttore;Codice Articolo;Codice EAN;Descrizione;Quantita;Ubicazione;']
 
     for data in queryset:
         dati.append(
-            "%s;%s;%s;%s;%s;%d;" % (
+            "%s;%s;%s;%s;%s;%d;%s;" % (
                 str_or_empty(data.magazzino.nome),
                 str_or_empty(data.articolo.produttore.ragione_sociale),
                 str_or_empty(data.articolo.codice),
                 str_or_empty(data.articolo.codice_ean),
                 str_or_empty(data.articolo.descrizione),
                 data.quantita,
+                str_or_empty(data.ubicazione)
                 )
             )
 
