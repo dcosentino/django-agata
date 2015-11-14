@@ -1,0 +1,27 @@
+{% extends "admin/base.html" %}
+
+
+{% block content %}
+
+<h1>Help on line</h1>
+
+<h2>Fase di collaudo</h2>
+<ol>
+  <li><a href="/admin/anagrafiche/societa" target="_blank">Creare azienda per cliente (es Arnetta)</a></li>
+  <li><a href="/admin/magazzino/magazzino" target="_blank">Creare Magazzino per cliente (es Arnetta)</a></li>
+  <li><a href="/admin/articoli/articolo" target="_blank">Creare articolo per cliente (es Arnetta)</a></li>
+  <li><a href="/admin/anagrafiche/societa" target="_blank">Creare azienda per cliente (es Arnetta)</a></li>
+  <li><a href="/agata/magazzino/operazioni/ubicazioni/deposito" target="_blank">Effettuare un deposito manuale con ubicazioni</a>, scegliendo il magazzino, inserendo il codice dell'articolo creato precedentemente, la quantità, l'ubicazione ed eventuali. L'ubicazione ha un valore alfanumerico di massimo 5 caratteri</li>
+  <li><a href="/admin/magazzino/giacenza/" target="_blank">Verificare la giacenza</a> e la corretta registrazione dell'<a href="/admin/magazzino/operazionemagazzino/">operazione di magazzino</a></li>
+<li>Ripetere i punti precedenti con un <a href="/agata/magazzino/operazioni/ubicazioni/prelievo" target="_blank">operazione di prelievo</a></li>
+<li>Le stesse operazioni possono essere effettuate in maniera cumulativa: <a href="/agata/magazzino/operazioni/prelievo/" target="_blank">prelievo</a> e <a href="/agata/magazzino/operazioni/deposito/" target="_blank">deposito</a> inserendo nella textarea delle righe così composte:<br/>
+CODICE ARTICOLO; QUANTITÀ; UBICAZIONE (OPZIONALE)<br/>
+Dopo aver inserito i dati, viene effettuata la verifica. Se è tutto ok si può completare l'operazione, altirmenti la si può annullare oppure compleatarla "con modifica"</li>
+</ol>
+
+
+{% endblock %}
+
+
+
+

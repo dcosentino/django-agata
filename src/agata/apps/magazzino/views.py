@@ -57,8 +57,6 @@ def parse_barcodes_con_ubicazioni(text):
  
 def verifica_letture(letture, tipo, magazzino, richiesta=None, completata=False, id_cliente=None, manuale=False, modifica_richiesta=False):
 
-    import custom.soedis.models as soedis_db
-
     letture_pulite = parse_barcodes_con_ubicazioni(letture)
     tot_richiesta = 0
     if richiesta:
@@ -106,7 +104,7 @@ def verifica_letture(letture, tipo, magazzino, richiesta=None, completata=False,
                     test = articoli_db.Articolo.objects.get(codice_ean=k)
                 else:
                     # Sto facendo un operazione manuale, uso il codice articolo e non il barcode a seconda del cliente
-                    if id_cliente in [settings.ID_PRODUTTORE_STARLINE]:#, settings.ID_PRODUTTORE_ARNETTA]:
+                    if id_cliente in []:
                         test = articoli_db.Articolo.objects.get(produttore__id=id_cliente, codice_ean=k)
                     else:
                         test = articoli_db.Articolo.objects.get(produttore__id=id_cliente, codice=k)
@@ -245,17 +243,10 @@ def verifica_letture(letture, tipo, magazzino, richiesta=None, completata=False,
                         continue
                     dato['articolo'] = test
                     #totali['missing'] += qta
-                    if id_cliente == settings.ID_PRODUTTORE_SOEDIS and tipo == 'deposito' and False:
-                        # Verifico che non si agià stato sparato qualche barcode per master carton di quell'articolo
-                        articolo_soedis = soedis_db.Articolo.objects.get(codice_ean=k)
-                        if letture_pulite.get(articolo_soedis.barcode_master_carton, None) is None:
-                            dato['articolo'] = test
-                            totali['missing'] += qta
-                            retval.append(dato)
-                    else:
-                        dato['articolo'] = test
-                        totali['missing'] += qta
-                        retval.append(dato)
+                    
+                    dato['articolo'] = test
+                    totali['missing'] += qta
+                    retval.append(dato)
                 except:
                     pass
                     #print 'barcode con problemi:', k
@@ -625,9 +616,6 @@ def vedi_ordine(request, id_ordine):
     ordine = get_object_or_404(Ordine, id=id_ordine)
     th_aggiuntive = []
     td_aggiuntive = []
-    # Personalizzazioni
-    if ordine.societa.id == settings.ID_PRODUTTORE_SOEDIS:
-        th_aggiuntive.append('Barcode Master Carton') 
 
     return render_to_response('magazzino/dettaglio_ordine.html', {'ordine': ordine, 'settings': settings}, context_instance=RequestContext(request))
 

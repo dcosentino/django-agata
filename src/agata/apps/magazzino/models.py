@@ -21,12 +21,12 @@ class Magazzino(models.Model):
     def __unicode__(self):
         return self.nome
 
-    def giacenza(instance):
+    def giacenza_(instance):
         totale = 0
         for g in instance.giacenza_set.all():
             totale += g.quantita
         return u'%d pezzi - <a href="/admin/magazzino/giacenza/?magazzino__id__exact=%d">Vedi dettaglio</a>' % (totale, instance.id)
-    giacenza.allow_tags = True
+    giacenza_.allow_tags = True
 
 
 class Giacenza(models.Model):

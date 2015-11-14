@@ -1,0 +1,186 @@
+/****** 1. GENERALI */
+
+body {
+    font-family: "Lato",Helvetica,Arial,sans-serif;
+    background: url(/static/common/img/sfondo.png); 
+}
+
+/****** 2. TYPE */
+
+#branding h1 {
+    color: #ffffff;
+}
+
+/****** 3. LINK */
+a:link, a:visited {
+    color: #000000;
+}
+
+a:hover,
+tbody a:hover {
+    color: #333333;
+    background-color: #ffee00;
+}
+
+/****** 4. TABLE */
+
+td, th {
+    font-family: "Lato",Helvetica,Arial,sans-serif;
+}
+
+
+.row1 {
+    background: none repeat scroll 0 0 #eeeeee;
+}
+
+thead th.sorted {
+    background: url("../img/nav-bg-selected.gif") repeat-x scroll left top #fefefe;
+}
+
+
+/****** 5. MIX */
+
+
+
+code, pre {
+    font-family: "Lato",Helvetica,Arial,sans-serif;
+}
+
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    border: 2px solid #333333;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: #333333;
+}
+
+
+
+#header {
+    background: #333333;
+    color: #ffffff;
+}
+
+
+
+
+body { background: #FFFFFF; margin:0; padding:0; }
+
+#container {margin:0; padding:0; }
+
+#header { background: #000000; }
+
+.linkAdmin{}
+a.LinkAdmin:link, a.linkAdmin:visited { color:#5B80B2; text-decoration:none; }
+#header a.linkAdmin:link, #header a.linkAdmin:visited { color:#C2C2C2; text-decoration:none; }
+#header a.linkAdmin:hover{ color:#000000; }
+
+#header #user-tools { padding:25px 35px 10px 0; font-size:12px; height:20px; color:#eee !important; }
+#header #user-tools a { color:#eee; border-left: 1px solid #eee; display:inline-block; padding-left:8px; }
+#header #user-tools a.logout:hover { text-decoration:none; color:#F00; }
+#header #user-tools strong {}
+
+div.breadcrumbs {margin:0; padding-top:10px; padding-bottom:10px; padding-left: 35px; font-size:12px; }
+
+#content {margin-top:20px; margin-left:35px; }
+
+#footer {
+  text-align: center;
+  margin-left:35px; 
+  margin-right:35px; 
+  margin-top: 30px;
+  border-top: 1px solid #E2E2E2;
+}
+
+#logout {
+font-size:11px;
+padding:6px 10px;
+position:absolute;
+right:25px;
+text-align:right;
+top:0px; }
+
+
+#content-related {
+    margin-top: -25px;
+}
+
+#content-related .module h2 {
+    background: #333333;
+    color: #FFFFFF;
+}
+
+
+
+  #legenda {
+    position: fixed;
+    top: 200px;
+    right: 50px;
+  }
+
+  .tab_magazzino_ok  {
+    background: #a0ffa0;;
+  }
+  .tab_magazzino_unknown  {
+    background: #B4045F;
+  }
+  .tab_magazzino_some  {
+    background: #FFFC00;
+  }
+  .tab_magazzino_more {
+    background-color: cyan;
+  }
+  .tab_magazzino_missing {
+    background-color: #FF9966;
+  }
+  .tab_magazzino_not_requested {
+    background-color: #eF80f0;
+  }
+  .tab_magazzino_missing_giacenza {
+    background-color: #C0C0C0;
+  }
+
+  p.error_msg {
+    border: 2px solid red;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 150%;
+    width:100%; 
+  }
+
+  .right_align {
+    text-align:right; 
+  }
+
+  textarea {
+    height: 50px;
+  }
+
+  .tabella td {
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+  }
+  .tabella td,
+  .tabella th {
+  font-size: 120%;
+  padding:5px;
+  }
+
+
+  p.err {
+    background: #FF9966;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 150%;
+    width: 800px;; 
+  }
+
+  p.ok  {
+    background: #a0ffa0;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 150%;
+    width: 800px; 
+  }
+

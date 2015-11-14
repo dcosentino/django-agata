@@ -14,5 +14,13 @@ urlpatterns = patterns('',
 
                        # Specifico dell'applicazione ordini
                        (r'^ordini/', include('agata.apps.ordini.urls')),
+
+                       url(r'^jolly$', 'agata.apps.common.views.jolly', name='jolly'),
+                       url(r'^help$', 'agata.apps.common.views.help', name='help'),
+                       url(r'^$', 'agata.apps.common.views.index', name='index'),
+
+                       # Specifico dell'applicazione arnetta
+                       (r'^arnetta/', include('custom.arnetta.urls')),
+
 )
 

@@ -5,7 +5,7 @@ from models import *
 
 
 class MagazzinoAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'giacenza']
+    list_display = ['nome', 'giacenza_']
     list_display_links = ['nome']
 
 def str_or_empty(string):
