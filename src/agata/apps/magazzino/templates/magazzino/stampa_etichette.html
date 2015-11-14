@@ -1,0 +1,50 @@
+{% extends "magazzino/base_magazzino.html" %}
+
+
+{% block content %}
+<style>
+textarea {
+         height: 300px;
+}
+a.bottone {
+display:block;
+float:right;
+width:140px;
+height:40px;
+    background:#979797;
+}
+
+a.bottone:hover {
+    background:#D2E8D7;
+}
+</style>
+<h1>Stampa etichette</h1>
+<div>
+  <form action="{% url 'magazzino_stampa_etichette' %}" method="post" enctype="multipart/form-data" style="width:385px;" id="profilo">{% csrf_token %}
+    <table>
+      <tr valign="top">
+        <td>
+          <label for="id_barcode">Barcode:</label>
+          <input type="text" name="barcode" value="{{barcode}}"/>
+        </td>
+        <td>
+          <label for="id_numero_etichette">Numero etichette:</label>
+          <input type="text" name="numero_etichette" value="{{numero_etichette}}"/>
+        </td>
+        <td>
+          <label for="id_offset">Offset:</label>
+          <input type="text" name="offset" value="{{offset|default:0}}"/>
+        </td>
+      </tr>
+      <tr>
+	<td><input type="submit" value="Stampa" /></td>
+	
+      </tr>
+    </table>
+
+  </form>
+{% endblock %}
+
+
+
+

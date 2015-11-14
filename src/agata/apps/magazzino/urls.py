@@ -17,4 +17,5 @@ urlpatterns = patterns('',
 
                        url('storico_articoli_download/(?P<codice>.*)', 'agata.apps.magazzino.views.storico_articoli_download', name="agata.apps.magazzino_storico_articoli_download"),
                        url('storico_articoli', 'agata.apps.magazzino.views.storico_articoli', name="magazzino_storico_articoli"),
+                       url('stampa_etichette', 'agata.apps.magazzino.views.stampa_etichette', name="magazzino_stampa_etichette"),
 )

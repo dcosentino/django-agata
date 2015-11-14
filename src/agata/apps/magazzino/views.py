@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 import re
 
-from django.shortcuts import render_to_response, HttpResponseRedirect, get_object_or_404
+from django.shortcuts import render_to_response, HttpResponse, HttpResponseRedirect, get_object_or_404
 from django.conf import settings
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -688,3 +688,13 @@ def storico_articoli_download(request, codice):
     response['Content-Length'] = temp.tell()
 
     return response
+
+
+
+def stampa_etichette(request):
+
+    if request.method == 'POST':
+        codice_articolo = request.POST.get('codice', '')
+        return HttpResponse('Work in progress')
+
+    return render_to_response('magazzino/stampa_etichette.html', {}, context_instance=RequestContext(request))
